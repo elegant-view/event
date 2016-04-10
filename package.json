@@ -1,0 +1,30 @@
+{
+  "name": "event",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elegant-view/event.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elegant-view/event/issues"
+  },
+  "homepage": "https://github.com/elegant-view/event#readme",
+  "devDependencies": {
+    "babel-plugin-transform-es2015-modules-amd": "^6.6.5",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "dev-server": "github:elegant-view/dev-server",
+    "requirejs": "^2.2.0"
+  },
+  "dependencies": {
+    "jasmine-core": "^2.4.1"
+  },
+  "ev": {}
+}
