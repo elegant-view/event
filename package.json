@@ -1,7 +1,7 @@
 {
   "name": "event",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Event",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/elegant-view/event.git"
   },
-  "author": "",
+  "author": "yibuyisheng(yibuyisheng@163.com)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/elegant-view/event/issues"
