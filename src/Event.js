@@ -17,12 +17,25 @@ export default class Event {
         this[STATE] = STATE_READY;
     }
 
+    /**
+     * 在调用on、trigger、safeTrigger、asyncTrigger、off的时候，要检查一下当前event对象的状态。
+     *
+     * @private
+     */
     [CHECK_READY]() {
         if (this[STATE] !== STATE_READY) {
             throw new Error('wrong event state: the event object is not ready.');
         }
     }
 
+    /**
+     * 绑定事件
+     *
+     * @public
+     * @param  {string}   eventName 事件名字
+     * @param  {Function} fn        回调函数
+     * @param  {Object=}   context   上下文对象
+     */
     on(eventName, fn, context) {
         this[CHECK_READY]();
 
@@ -35,6 +48,13 @@ export default class Event {
         events[eventName].push({fn, context});
     }
 
+    /**
+     * 同步触发事件
+     *
+     * @public
+     * @param  {string}    eventName 事件名字
+     * @param  {...[*]} args      要传给事件回调函数的参数列表
+     */
     trigger(eventName, ...args) {
         this[CHECK_READY]();
 
@@ -44,6 +64,14 @@ export default class Event {
         }
     }
 
+    /**
+     * “安全地”同步触发事件。也就是说如果前面的回调函数调用off方法移除后续的回调函数，
+     * 该种触发方式会保证后续将被移除的回调函数被调用到。
+     *
+     * @public
+     * @param  {string}    eventName 事件名字
+     * @param  {...[*]} args      传递给事件回调函数的参数列表
+     */
     safeTrigger(eventName, ...args) {
         this[CHECK_READY]();
 
@@ -58,6 +86,13 @@ export default class Event {
         }
     }
 
+    /**
+     * 异步地调用回调函数，会保证所有回调函数都会被调用到。
+     *
+     * @public
+     * @param  {string}    eventName 事件名字
+     * @param  {...[*]} args      参数列表
+     */
     asyncTrigger(eventName, ...args) {
         this[CHECK_READY]();
 
@@ -74,6 +109,15 @@ export default class Event {
         });
     }
 
+    /**
+     * 移除事件回调
+     *
+     * @public
+     * @param  {...[*]} args eventName，fn，context
+     * @param  {string=} args.0 参数名字
+     * @param  {function=} args.1 回调函数
+     * @param  {Object=} args.2 上下文对象
+     */
     off(...args) {
         this[CHECK_READY]();
 
