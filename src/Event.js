@@ -14,6 +14,16 @@ export default class Event {
     }
 
     /**
+     * 获取事件
+     *
+     * @protected
+     * @return {OrderedProtectObject}
+     */
+    getEvent() {
+        return this[EVENT];
+    }
+
+    /**
      * 绑定事件
      *
      * @public
