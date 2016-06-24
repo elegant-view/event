@@ -88,6 +88,11 @@ export default class Event {
         }
     }
 
+    /**
+     * 销毁
+     *
+     * @public
+     */
     destroy() {
         this[EVENT] = null;
     }
