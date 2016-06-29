@@ -49,15 +49,14 @@ export default class Event {
      * @param  {...[*]} args      要传给事件回调函数的参数列表
      */
     trigger(eventName, ...args) {
-        const handlers = this[EVENT][eventName];
+        const handlers = this[EVENT].get(eventName);
         if (handlers) {
             this[EVENT].safeExecute(() => {
-                this[EVENT].set(eventName, handlers);
                 for (let i = 0, il = handlers.length; i < il; ++i) {
                     const handler = handlers[i];
                     handler.fn.apply(handler.context, args);
                 }
-            });
+            }, null, true);
         }
     }
 
