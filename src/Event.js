@@ -4,7 +4,7 @@
  */
 
 import * as util from './util';
-import OrderedProtectObject from 'ProtectObject/OrderedProtectObject';
+import OrderedProtectObject from 'protectobject/OrderedProtectObject';
 
 const EVENT = Symbol('events');
 
