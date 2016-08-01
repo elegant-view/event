@@ -76,24 +76,42 @@ export default class Event {
         }
 
         const iterator = checkFn => {
-            const handlers = this[EVENT].get(eventName);
-            const newHandlers = [];
-            for (let i = 0, il = handlers.length; i < il; ++i) {
-                if (checkFn(handlers[i])) {
-                    newHandlers.push(handlers[i]);
+            let handlers;
+            this[EVENT].safeIterate((value, name) => {
+                if (eventName === name) {
+                    handlers = value;
+                    return true;
                 }
+            });
+
+            if (handlers && handlers.length) {
+                const newHandlers = [];
+                for (let i = 0, il = handlers.length; i < il; ++i) {
+                    if (checkFn(handlers[i])) {
+                        newHandlers.push(handlers[i]);
+                    }
+                }
+                this[EVENT].set(eventName, newHandlers);
             }
-            this[EVENT].set(eventName, newHandlers);
         };
 
-        if (eventName && fn !== undefined) {
-            this[EVENT].set(eventName, null);
+        if (fn) {
+            iterator(handler => {
+                // 返回true表明当前handler不属于要移除的范畴
+
+                if (handler.fn !== fn) {
+                    return true;
+                }
+
+                if (context && handler.context !== context) {
+                    return true;
+                }
+
+                return false;
+            });
         }
-        else if (eventName && fn && context !== undefined) {
-            iterator(handler => fn !== handler.fn);
-        }
-        else if (eventName && fn && context) {
-            iterator(handler => fn !== handler.fn || context !== handler.context);
+        else {
+            this[EVENT].set(eventName, []);
         }
     }
 
